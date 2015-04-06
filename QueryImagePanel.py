@@ -11,7 +11,6 @@ class QueryImagePanel(wx.Panel):
    def scaleImage(self, img):
       size = 250
       (w,h) = img.GetSize()
-      print w,h
       f = h/float(size)
 
       if f > 0:

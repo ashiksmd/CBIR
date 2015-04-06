@@ -9,9 +9,9 @@ class ImageViewer(wx.Frame):
       super(ImageViewer, self).__init__(parent, title=title)
 
       PhotoList.initPhotoList()
-      self.initUI()
       self.Maximize()
       self.Show()
+      wx.CallAfter(self.initUI)
 
    def initUI(self):
       #Create menu bar with a quit option
@@ -50,7 +50,7 @@ class ImageViewer(wx.Frame):
 
       topPanel.SetSizer(hbox)
 
-      bottomPanel = BottomPanel(panel)
+      bottomPanel = BottomPanel(panel, self.GetSize())
 
       vbox.Add(topPanel, 1, wx.EXPAND | wx.ALL, 5)
       vbox.Add(bottomPanel, 2, wx.EXPAND | wx.ALL)

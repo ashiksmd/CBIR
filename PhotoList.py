@@ -3,8 +3,6 @@ import os
 
 photoList = []
 
-print 'imported photolist'
-
 def initPhotoList():
    directory = 'images/'
    images = os.listdir(directory)
