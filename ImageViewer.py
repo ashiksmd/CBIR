@@ -1,11 +1,14 @@
 import wx
 from QueryImagePanel import QueryImagePanel
 from ButtonsPanel import ButtonsPanel
+from BottomPanel import BottomPanel
+import PhotoList
 
 class ImageViewer(wx.Frame):
    def __init__(self, parent, title):
       super(ImageViewer, self).__init__(parent, title=title)
 
+      PhotoList.initPhotoList()
       self.initUI()
       self.Maximize()
       self.Show()
@@ -47,19 +50,12 @@ class ImageViewer(wx.Frame):
 
       topPanel.SetSizer(hbox)
 
-      resultsPanel = wx.Panel(panel)
-      resultsPanel.SetBackgroundColour('#ffffff')
+      bottomPanel = BottomPanel(panel)
 
       vbox.Add(topPanel, 1, wx.EXPAND | wx.ALL, 5)
-      vbox.Add(resultsPanel, 2, wx.EXPAND | wx.ALL)
+      vbox.Add(bottomPanel, 2, wx.EXPAND | wx.ALL)
 
       panel.SetSizer(vbox)
-
-      #Placeholder text
-      font = wx.SystemSettings_GetFont(wx.SYS_SYSTEM_FONT)
-      font.SetPointSize(9)
-      st3 = wx.StaticText(resultsPanel, label='Results')
-      st3.SetFont(font)
 
    def chooseImage(self, e):
       path = self.buttonsPanel.chooseImage()
