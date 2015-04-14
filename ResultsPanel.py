@@ -4,9 +4,8 @@ import PhotoList
 from ThumbnailsPanel import ThumbnailsPanel
 
 class ResultsPanel(scrolled.ScrolledPanel):
-   def __init__(self, parent, start, end, wSize):
-      (w,h) = wSize
-      super(ResultsPanel, self).__init__(parent, size=(w,200))
+   def __init__(self, parent, start, end):
+      super(ResultsPanel, self).__init__(parent, size=(1366,200))
 
       self.grid = wx.GridSizer(4, 5, 0, 0)
       
@@ -27,5 +26,3 @@ class ResultsPanel(scrolled.ScrolledPanel):
       self.SetSizer(self.grid)
       self.SetAutoLayout(1)
       self.SetupScrolling() 
-      #self.grid.Fit()
-      

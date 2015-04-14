@@ -11,7 +11,7 @@ class ImageViewer(wx.Frame):
       PhotoList.initPhotoList()
       self.Maximize()
       self.Show()
-      wx.CallAfter(self.initUI)
+      self.initUI()
 
    def initUI(self):
       #Create menu bar with a quit option
@@ -43,6 +43,8 @@ class ImageViewer(wx.Frame):
       
       #Button events
       self.Bind(wx.EVT_BUTTON, self.chooseImage, self.buttonsPanel.browseButton)
+      self.Bind(wx.EVT_BUTTON, self.computeInt, self.buttonsPanel.inButton)
+      self.Bind(wx.EVT_BUTTON, self.computeCC, self.buttonsPanel.ccButton)
 
       #Position the panels on screen
       hbox.Add(self.queryImagePanel, 2, wx.EXPAND | wx.ALL | wx.ALIGN_LEFT)
@@ -50,10 +52,10 @@ class ImageViewer(wx.Frame):
 
       topPanel.SetSizer(hbox)
 
-      bottomPanel = BottomPanel(panel, self.GetSize())
+      self.bottomPanel = BottomPanel(panel)
 
       vbox.Add(topPanel, 1, wx.EXPAND | wx.ALL, 5)
-      vbox.Add(bottomPanel, 2, wx.EXPAND | wx.ALL)
+      vbox.Add(self.bottomPanel, 2, wx.EXPAND | wx.ALL)
 
       panel.SetSizer(vbox)
 
@@ -62,6 +64,15 @@ class ImageViewer(wx.Frame):
       if path is not None:
          self.queryImagePanel.updateQueryImage(path)
  
+   def computeInt(self, e ):
+      PhotoList.computeInt(self.queryImagePanel.queryImage)
+      self.bottomPanel.updateResults(self.bottomPanel, 0,20)
+
+   def computeCC(self, e):
+      PhotoList.computeCC(self.queryImagePanel.queryImage)
+      self.bottomPanel.updateResults(self.bottomPanel, 0,20)
+
+
    def OnQuit(self, e):
       self.Close()
 

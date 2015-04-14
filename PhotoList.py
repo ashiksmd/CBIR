@@ -13,10 +13,30 @@ def initPhotoList():
          photoList.append(Photo(directory + f, f))
 
 
-def computeCC():
-   return None
+def displayPhotos():
+   print '\nPhotos:'
+   for photo in photoList:
+      print photo.name
 
-def computeInt():
-   return None
+def computeCC(queryImage):
+   _,fName = os.path.split(queryImage)
+
+   query = Photo(queryImage, fName)
+   for photo in photoList:
+      photo.computeIntDistance(query)
+
+   displayPhotos()
+   photoList.sort(key=lambda x: x.distance)
+   displayPhotos()
+
+def computeInt(queryImage):
+   _,fName = os.path.split(queryImage)
+
+   query = Photo(queryImage, fName)
+   for photo in photoList:
+      photo.computeIntDistance(query)
+
+   photoList.sort(key=lambda x: x.distance)
+
 
 
