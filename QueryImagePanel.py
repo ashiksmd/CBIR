@@ -6,9 +6,11 @@ class QueryImagePanel(wx.Panel):
       super(QueryImagePanel, self).__init__(parent)
       self.displayedImage = None
 
+      # Set 1.jpg as query image at app start
       self.updateQueryImage('images/1.jpg')
 
    def scaleImage(self, img):
+      """ Scale down image to fit in grid """
       size = 250
       (w,h) = img.GetSize()
       f = h/float(size)
@@ -21,6 +23,10 @@ class QueryImagePanel(wx.Panel):
       return scaled
 
    def updateQueryImage(self, queryImage):
+      """
+         Set query image for computation
+         Also displays the image
+      """
       self.queryImage = queryImage 
 
       #Load image

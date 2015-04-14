@@ -6,9 +6,11 @@ class ThumbnailsPanel(wx.Panel):
 
       vbox = wx.BoxSizer(wx.VERTICAL)
 
+      # Scaled down image
       img = photo.scaled
-      
       bmp = wx.StaticBitmap(self, -1, img.ConvertToBitmap(), self.GetPosition(), img.GetSize())
+
+      # File name
       fName = wx.StaticText(self, label=photo.name)
 
       vbox.Add(bmp, 0, wx.ALL, 1)

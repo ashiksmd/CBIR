@@ -7,9 +7,9 @@ class PageControl(wx.Panel):
       self.updateFunc = updateFunc
       self.context = context
 
-      self.total = 100
-      self.page = 1
-      self.pageSize = 20
+      self.total = 100    # 100 images in total
+      self.page = 1       # Start on page 1
+      self.pageSize = 20  # 20 images in each page
       pages = ['1','2','3','4','5']
 
       hbox = wx.BoxSizer(wx.HORIZONTAL)
@@ -38,6 +38,7 @@ class PageControl(wx.Panel):
       self.Bind(wx.EVT_COMBOBOX, self.gotoPage, self.currPage)
 
    def refreshPage(self):
+      """ Refresh display with images from current page """
       self.currPage.SetSelection(self.page - 1)
 
       start = self.pageSize * (self.page - 1)

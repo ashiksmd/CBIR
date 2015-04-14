@@ -14,6 +14,7 @@ class ImageViewer(wx.Frame):
       self.initUI()
 
    def initUI(self):
+      """ Initialize the UI """
       #Create menu bar with a quit option
       menuBar = wx.MenuBar()
       fileMenu = wx.Menu()
@@ -60,18 +61,20 @@ class ImageViewer(wx.Frame):
       panel.SetSizer(vbox)
 
    def chooseImage(self, e):
+      """ Choose a new query image """
       path = self.buttonsPanel.chooseImage()
       if path is not None:
          self.queryImagePanel.updateQueryImage(path)
  
    def computeInt(self, e ):
+      """ Compute results using intensity method """
       PhotoList.computeInt(self.queryImagePanel.queryImage)
       self.bottomPanel.updateResults(self.bottomPanel, 0,20)
 
    def computeCC(self, e):
+      """ Compute results using color coding method """
       PhotoList.computeCC(self.queryImagePanel.queryImage)
       self.bottomPanel.updateResults(self.bottomPanel, 0,20)
-
 
    def OnQuit(self, e):
       self.Close()

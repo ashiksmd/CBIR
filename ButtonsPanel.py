@@ -20,6 +20,7 @@ class ButtonsPanel(wx.Panel):
       self.SetSizer(vbox)
 
    def chooseImage(self):
+      """ Choose new query image """
       openFileDialog = wx.FileDialog(self, "Choose Image", "images/", "1.jpg",
                                        "Jpeg files (*.jpg)|*.jpg", wx.FD_OPEN | wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW )
 
