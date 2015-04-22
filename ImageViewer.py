@@ -71,6 +71,13 @@ class ImageViewer(wx.Frame):
  
    def toggleRF(self, e):
       rfOn = self.buttonsPanel.rfToggle.IsChecked()
+      if(rfOn):
+          self.buttonsPanel.inButton.Disable()
+          self.buttonsPanel.ccButton.Disable()
+      else:
+          self.buttonsPanel.inButton.Enable()
+          self.buttonsPanel.ccButton.Enable()
+
       self.bottomPanel.toggleRFOption(rfOn)
 
    def computeInt(self, e ):
