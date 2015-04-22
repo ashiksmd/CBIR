@@ -29,12 +29,12 @@ class Photo:
          self.computeCCBins()
 
       #Scale and fit
-      size = 260
+      size = 150
       f = min(w,h)/float(size)
       if f > 0:
-         self.scaled = self.img.Scale(w/f, h/f).Size((size,size), (0,0))
+         self.scaled = self.img.Scale(w/f, h/f)
       else:
-         self.scaled = self.img.Size((size, size), (0,0))
+         self.scaled = self.img
 
       #Distance to query image
       self.distance = 0

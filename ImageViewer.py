@@ -47,6 +47,9 @@ class ImageViewer(wx.Frame):
       self.Bind(wx.EVT_BUTTON, self.computeInt, self.buttonsPanel.inButton)
       self.Bind(wx.EVT_BUTTON, self.computeCC, self.buttonsPanel.ccButton)
 
+      #Checkbox event
+      self.Bind(wx.EVT_CHECKBOX, self.toggleRF, self.buttonsPanel.rfToggle)
+
       #Position the panels on screen
       hbox.Add(self.queryImagePanel, 2, wx.EXPAND | wx.ALL | wx.ALIGN_LEFT)
       hbox.Add(self.buttonsPanel, 1, wx.EXPAND | wx.ALL | wx.ALIGN_RIGHT)
@@ -66,6 +69,10 @@ class ImageViewer(wx.Frame):
       if path is not None:
          self.queryImagePanel.updateQueryImage(path)
  
+   def toggleRF(self, e):
+      rfOn = self.buttonsPanel.rfToggle.IsChecked()
+      self.bottomPanel.toggleRFOption(rfOn)
+
    def computeInt(self, e ):
       """ Compute results using intensity method """
       PhotoList.computeInt(self.queryImagePanel.queryImage)

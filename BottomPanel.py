@@ -25,5 +25,8 @@ class BottomPanel(wx.Panel):
          start, end - used for pagination
          context - BottomPanel object. Useful when called from other scopes
       """
-      context.resultsPanel.updateResults(start, end) 
+      context.resultsPanel.updateResults(start, end, self.rfState) 
 
+   def toggleRFOption(self, rfState):
+      self.rfState = rfState
+      self.pageControls.gotoFirst(None,False)

@@ -46,8 +46,8 @@ class PageControl(wx.Panel):
 
       self.updateFunc(self.context, start, end)
 
-   def gotoFirst(self, e):
-      if (self.page == 1): return
+   def gotoFirst(self, e, ignoreIfAtFirst=True):
+      if (self.page == 1 and ignoreIfAtFirst): return
 
       self.page = 1
       self.refreshPage()

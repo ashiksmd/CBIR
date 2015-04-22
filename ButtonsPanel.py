@@ -5,17 +5,23 @@ class ButtonsPanel(wx.Panel):
       super(ButtonsPanel, self).__init__(parent)
 
       #Choose an image
-      self.browseButton = wx.Button(self, label='Change Image', size=(100, 30))
+      self.browseButton = wx.Button(self, label='Change Image', size=(200, 30))
       #Find similar images using color codes method
-      self.ccButton =  wx.Button(self, label='Color Coding', size=(100, 30))
+      self.ccButton =  wx.Button(self, label='Color Coding', size=(200, 30))
       #Find similar images uing intensity method
-      self.inButton =  wx.Button(self, label='Intensity', size=(100, 30))
+      self.inButton =  wx.Button(self, label='Intensity', size=(200, 30))
+      #Use intensity and color coding at the same time
+      self.intCCButton = wx.Button(self, label='Intensity && Color Coding', size=(200,30))
+      #Toggle Relevance Feedback
+      self.rfToggle = wx.CheckBox(self, -1, 'Relevance Feedback', (10, 10))
 
       #Position buttons on screen
       vbox = wx.BoxSizer(wx.VERTICAL);
-      vbox.Add(self.browseButton, 0, wx.ALIGN_CENTER | wx.TOP, 50)
+      vbox.Add(self.browseButton, 0, wx.ALIGN_CENTER | wx.TOP, 5)
       vbox.Add(self.ccButton, 0, wx.ALIGN_CENTER | wx.TOP, 5)
       vbox.Add(self.inButton, 0, wx.ALIGN_CENTER | wx.TOP, 5)
+      vbox.Add(self.intCCButton, 0, wx.ALIGN_CENTER | wx.TOP, 5)
+      vbox.Add(self.rfToggle, 0, wx.ALIGN_CENTER | wx.TOP, 5)
 
       self.SetSizer(vbox)
 

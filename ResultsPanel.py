@@ -12,7 +12,7 @@ class ResultsPanel(scrolled.ScrolledPanel):
       self.thumbs = [] # Image thumbnails
       self.updateResults(start, end)
 
-   def updateResults(self, start, end):
+   def updateResults(self, start, end, rfState=False):
       """ Display images in range start-end """
 
       # Clear any previous entries
@@ -23,10 +23,11 @@ class ResultsPanel(scrolled.ScrolledPanel):
 
       # Create thumbnails and add to grid
       for photo in PhotoList.photoList[start:end]:
-         thumbnailsPanel = ThumbnailsPanel(self, photo)
+         thumbnailsPanel = ThumbnailsPanel(self, photo, rfState)
          self.thumbs.append(thumbnailsPanel)
          self.grid.Add(thumbnailsPanel, 0, wx.ALL)
 
       self.SetSizer(self.grid)
       self.SetAutoLayout(1)
       self.SetupScrolling() 
+
