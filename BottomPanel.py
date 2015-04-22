@@ -16,6 +16,7 @@ class BottomPanel(wx.Panel):
       self.resultsPanel = ResultsPanel(self, 0, 20)
       vbox.Add(self.resultsPanel, wx.ALL)
 
+      self.rfState = False
       self.SetSizer(vbox)
 
    def updateResults(self, context, start, end):

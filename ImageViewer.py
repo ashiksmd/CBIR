@@ -58,7 +58,7 @@ class ImageViewer(wx.Frame):
 
       self.bottomPanel = BottomPanel(panel)
 
-      vbox.Add(topPanel, 1, wx.EXPAND | wx.ALL, 5)
+      vbox.Add(topPanel, 0, wx.EXPAND | wx.ALL, 5)
       vbox.Add(self.bottomPanel, 2, wx.EXPAND | wx.ALL)
 
       panel.SetSizer(vbox)
@@ -76,12 +76,12 @@ class ImageViewer(wx.Frame):
    def computeInt(self, e ):
       """ Compute results using intensity method """
       PhotoList.computeInt(self.queryImagePanel.queryImage)
-      self.bottomPanel.updateResults(self.bottomPanel, 0,20)
+      self.bottomPanel.pageControls.gotoFirst(None, False)
 
    def computeCC(self, e):
       """ Compute results using color coding method """
       PhotoList.computeCC(self.queryImagePanel.queryImage)
-      self.bottomPanel.updateResults(self.bottomPanel, 0,20)
+      self.bottomPanel.pageControls.gotoFirst(None, False)
 
    def OnQuit(self, e):
       self.Close()

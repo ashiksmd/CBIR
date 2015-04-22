@@ -11,7 +11,7 @@ class QueryImagePanel(wx.Panel):
 
    def scaleImage(self, img):
       """ Scale down image to fit in grid """
-      size = 250
+      size = 180
       (w,h) = img.GetSize()
       f = h/float(size)
 

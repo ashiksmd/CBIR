@@ -29,7 +29,7 @@ class Photo:
          self.computeCCBins()
 
       #Scale and fit
-      size = 150
+      size = 170
       f = min(w,h)/float(size)
       if f > 0:
          self.scaled = self.img.Scale(w/f, h/f)
