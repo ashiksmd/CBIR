@@ -41,12 +41,9 @@ class Photo:
          self.readRFBins()
 
       #Scale and fit
-      size = 170
-      f = min(w,h)/float(size)
-      if f > 0:
-         self.scaled = self.img.Scale(w/f, h/f)
-      else:
-         self.scaled = self.img
+      size = 100
+      f = h/float(size)
+      self.scaled = self.img.Scale(w/f, h/f)
 
       #Distance to query image
       self.distance = 0

@@ -76,7 +76,7 @@ def normalizeResults():
       for photo in photoList:
          sum += photo.intBins[i]
 
-      mean = sum / 25.0
+      mean = sum / len(photoList)
 
       # Find variance
       for photo in photoList:
@@ -100,7 +100,7 @@ def normalizeResults():
       for photo in photoList:
          sum += photo.ccBins[i]
 
-      mean = sum / 64.0
+      mean = sum / len(photoList)
 
       # Find variance
       for photo in photoList:

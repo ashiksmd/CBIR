@@ -11,11 +11,11 @@ class QueryImagePanel(wx.Panel):
 
    def scaleImage(self, img):
       """ Scale down image to fit in grid """
-      size = 180
+      size = 200.0
       (w,h) = img.GetSize()
-      f = h/float(size)
+      f = w/size
 
-      if f > 0:
+      if f > 1:
          scaled = img.Scale(w/f, h/f)
       else:
          scaled = img
@@ -30,8 +30,9 @@ class QueryImagePanel(wx.Panel):
       self.queryImage = queryImage 
 
       #Load image
-      img = self.scaleImage(wx.Image(queryImage, wx.BITMAP_TYPE_ANY))
-     
+      #img = self.scaleImage(wx.Image(queryImage, wx.BITMAP_TYPE_ANY))
+      img = wx.Image(queryImage, wx.BITMAP_TYPE_ANY)
+
       #Display
       if self.displayedImage is not None:
          self.displayedImage.Destroy()

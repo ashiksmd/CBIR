@@ -1,11 +1,12 @@
 import wx
+import common
 
 class PageControl(wx.Panel):
-   def __init__(self, parent, updateFunc, context):
+   def __init__(self, parent):
       super(PageControl, self).__init__(parent)
 
-      self.updateFunc = updateFunc
-      self.context = context
+      #self.updateFunc = updateFunc
+      #self.context = context
 
       self.total = 100    # 100 images in total
       self.page = 1       # Start on page 1
@@ -44,7 +45,7 @@ class PageControl(wx.Panel):
       start = self.pageSize * (self.page - 1)
       end = start + self.pageSize
 
-      self.updateFunc(self.context, start, end)
+      common.resultsPanel.updateResults(start, end)
 
    def gotoFirst(self, e, ignoreIfAtFirst=True):
       if (self.page == 1 and ignoreIfAtFirst): return

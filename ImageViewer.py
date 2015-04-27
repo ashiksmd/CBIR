@@ -3,6 +3,7 @@ from QueryImagePanel import QueryImagePanel
 from ButtonsPanel import ButtonsPanel
 from BottomPanel import BottomPanel
 import PhotoList
+import common
 
 class ImageViewer(wx.Frame):
    def __init__(self, parent, title):
@@ -27,77 +28,33 @@ class ImageViewer(wx.Frame):
 
       #Main panel
       panel = wx.Panel(self)
-      panel.SetBackgroundColour('#4f5049')
 
       vbox = wx.BoxSizer(wx.VERTICAL)
       hbox = wx.BoxSizer(wx.HORIZONTAL)
 
       #Top panel. Contains query image and some buttons
-      topPanel = wx.Panel(panel)
-      topPanel.SetBackgroundColour('#ededed')
+      leftPanel = wx.Panel(panel)
 
       #Panel to display the query image
-      self.queryImagePanel = QueryImagePanel(topPanel)
+      self.queryImagePanel = QueryImagePanel(leftPanel)
+      common.queryImagePanel = self.queryImagePanel
 
       #Buttons
-      self.buttonsPanel = ButtonsPanel(topPanel)
-      
-      #Button events
-      self.Bind(wx.EVT_BUTTON, self.chooseImage, self.buttonsPanel.browseButton)
-      self.Bind(wx.EVT_BUTTON, self.computeInt, self.buttonsPanel.inButton)
-      self.Bind(wx.EVT_BUTTON, self.computeCC, self.buttonsPanel.ccButton)
-      self.Bind(wx.EVT_BUTTON, self.computeRF, self.buttonsPanel.intCCButton)
-
-      #Checkbox event
-      self.Bind(wx.EVT_CHECKBOX, self.toggleRF, self.buttonsPanel.rfToggle)
+      self.buttonsPanel = ButtonsPanel(leftPanel)
+      common.buttonsPanel = self.buttonsPanel 
 
       #Position the panels on screen
-      hbox.Add(self.queryImagePanel, 2, wx.EXPAND | wx.ALL | wx.ALIGN_LEFT)
-      hbox.Add(self.buttonsPanel, 1, wx.EXPAND | wx.ALL | wx.ALIGN_RIGHT)
+      vbox.Add(self.queryImagePanel, 2, wx.EXPAND | wx.ALL | wx.ALIGN_LEFT)
+      vbox.Add(self.buttonsPanel, 1, wx.EXPAND | wx.ALL | wx.ALIGN_RIGHT)
 
-      topPanel.SetSizer(hbox)
+      leftPanel.SetSizer(vbox)
 
-      self.bottomPanel = BottomPanel(panel)
+      self.rightPanel = BottomPanel(panel)
 
-      vbox.Add(topPanel, 0, wx.EXPAND | wx.ALL, 5)
-      vbox.Add(self.bottomPanel, 2, wx.EXPAND | wx.ALL)
+      hbox.Add(leftPanel, 0, wx.EXPAND | wx.ALL, 10)
+      hbox.Add(self.rightPanel, 2, wx.EXPAND | wx.ALL, 10)
 
-      panel.SetSizer(vbox)
-
-   def chooseImage(self, e):
-      """ Choose a new query image """
-      path = self.buttonsPanel.chooseImage()
-      if path is not None:
-         self.queryImagePanel.updateQueryImage(path)
- 
-   def toggleRF(self, e):
-      rfOn = self.buttonsPanel.rfToggle.IsChecked()
-      if(rfOn):
-          self.buttonsPanel.inButton.Disable()
-          self.buttonsPanel.ccButton.Disable()
-      else:
-          self.buttonsPanel.inButton.Enable()
-          self.buttonsPanel.ccButton.Enable()
-
-      self.bottomPanel.toggleRFOption(rfOn)
-
-   def computeInt(self, e ):
-      """ Compute results using intensity method """
-      PhotoList.computeInt(self.queryImagePanel.queryImage)
-      self.bottomPanel.pageControls.gotoFirst(None, False)
-
-   def computeCC(self, e):
-      """ Compute results using color coding method """
-      PhotoList.computeCC(self.queryImagePanel.queryImage)
-      self.bottomPanel.pageControls.gotoFirst(None, False)
-
-   def computeRF(self, e):
-      """
-         Compute results using both intensity and color coding
-         and then apply Relevance Feedback
-      """
-      PhotoList.computeRF(self.queryImagePanel.queryImage)
-      self.bottomPanel.pageControls.gotoFirst(None, False)
+      panel.SetSizer(hbox)
 
    def OnQuit(self, e):
       self.Close()
