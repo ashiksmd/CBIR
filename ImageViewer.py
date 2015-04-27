@@ -46,6 +46,7 @@ class ImageViewer(wx.Frame):
       self.Bind(wx.EVT_BUTTON, self.chooseImage, self.buttonsPanel.browseButton)
       self.Bind(wx.EVT_BUTTON, self.computeInt, self.buttonsPanel.inButton)
       self.Bind(wx.EVT_BUTTON, self.computeCC, self.buttonsPanel.ccButton)
+      self.Bind(wx.EVT_BUTTON, self.computeRF, self.buttonsPanel.intCCButton)
 
       #Checkbox event
       self.Bind(wx.EVT_CHECKBOX, self.toggleRF, self.buttonsPanel.rfToggle)
@@ -88,6 +89,14 @@ class ImageViewer(wx.Frame):
    def computeCC(self, e):
       """ Compute results using color coding method """
       PhotoList.computeCC(self.queryImagePanel.queryImage)
+      self.bottomPanel.pageControls.gotoFirst(None, False)
+
+   def computeRF(self, e):
+      """
+         Compute results using both intensity and color coding
+         and then apply Relevance Feedback
+      """
+      PhotoList.computeRF(self.queryImagePanel.queryImage)
       self.bottomPanel.pageControls.gotoFirst(None, False)
 
    def OnQuit(self, e):

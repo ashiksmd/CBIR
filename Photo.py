@@ -3,13 +3,14 @@ import math
 import os.path
 
 class Photo:
-   def __init__(self, path, fName):
+   def __init__(self, path, fName, computeAndReturn=False):
       self.img = wx.Image(path, wx.BITMAP_TYPE_ANY)
       self.name = fName
 
       #Histogram bins
       self.intBins = [0]*25
       self.ccBins = [0]*64
+      self.rfBins = [0]*89
 
       #Image size
       (w,h) = self.img.GetSize()
@@ -18,7 +19,7 @@ class Photo:
       self.imgW = w
 
       # Compute or read color histogram bins
-      if(os.path.isfile('intBins/' + self.name + '.txt')):
+      if (os.path.isfile('intBins/' + self.name + '.txt')):
          self.readIntBins()
       else:
          self.computeIntBins()
@@ -27,6 +28,17 @@ class Photo:
          self.readCCBins()
       else:
          self.computeCCBins()
+
+      # During pre-computation phase, just compute relevant parts and return
+      if(computeAndReturn):
+         return
+
+      if(not os.path.isfile('rfBins/' + self.name + '.txt')):
+         print 'Could not find Gaussian normalized features for ' + self.name + '.txt'
+         print 'Compute by running: python PhotoList.py'
+         exit
+      else:
+         self.readRFBins()
 
       #Scale and fit
       size = 170
@@ -45,7 +57,7 @@ class Photo:
          Uses intensity method
       """
       for i in range(0, self.imgW):
-          for j in range(0, self.imgH):
+         for j in range(0, self.imgH):
              r = self.img.GetRed(i,j)
              g = self.img.GetGreen(i,j)
              b = self.img.GetBlue(i,j)
@@ -58,6 +70,10 @@ class Photo:
 
              #Add pixel to bin
              self.intBins[bin]+=1
+
+      # Normalize by dividing by image size
+      for i in range(0,25):
+         self.intBins[i] /= self.imgSize
 
       # Write to file
       self.writeIntBins()
@@ -78,6 +94,10 @@ class Photo:
              #Add pixel to bin
              self.ccBins[bin]+=1
 
+      # Normalize by dividing by image size
+      for i in range(0,64):
+         self.ccBins[i] /= self.imgSize
+
       # Write to file
       self.writeCCBins()
 
@@ -97,6 +117,14 @@ class Photo:
        
        f.close()
 
+   def writeRFBins(self):
+       """ write histogram bins to file """
+       f = open('rfBins/' + self.name + '.txt', 'w')
+       for i in range(0, 89):
+           f.write(str(self.rfBins[i]) + ' ')
+       
+       f.close()
+
    def readIntBins(self):
       """ Read histogram bins back from file """
       f = open('intBins/' + self.name + '.txt', 'r')
@@ -104,7 +132,7 @@ class Photo:
       for line in f:
          for word in line.split():
             if word:
-               self.intBins[i] = int(word)
+               self.intBins[i] = float(word)
                i+=1
 
       f.close()
@@ -116,7 +144,19 @@ class Photo:
       for line in f:
          for word in line.split():
             if word:
-               self.ccBins[i] = int(word)
+               self.ccBins[i] = float(word)
+               i+=1
+
+      f.close()
+
+   def readRFBins(self):
+      """ Read histogram bins back from file """
+      f = open('rfBins/' + self.name + '.txt', 'r')
+      i = 0
+      for line in f:
+         for word in line.split():
+            if word:
+               self.rfBins[i] = float(word)
                i+=1
 
       f.close()
@@ -129,7 +169,7 @@ class Photo:
       self.distance = 0
 
       for i in range(0,25):
-         self.distance += abs(self.intBins[i]/self.imgSize - img.intBins[i]/img.imgSize)
+         self.distance += abs(self.intBins[i] - img.intBins[i])
 
    def computeCCDistance(self, img):
       """
@@ -139,5 +179,11 @@ class Photo:
       self.distance = 0
 
       for i in range(0,64):
-         self.distance += abs(self.ccBins[i]/self.imgSize - img.ccBins[i]/img.imgSize)
+         self.distance += abs(self.ccBins[i] - img.ccBins[i])
+
+   def computeRFDistance(self, img, weights):
+      self.distance = 0
+
+      for i in range(0,89):
+         self.distance = weights[i] * abs(self.rfBins[i] - img.rfBins[i])
 
