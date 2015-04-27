@@ -182,5 +182,5 @@ class Photo:
       self.distance = 0
 
       for i in range(0,89):
-         self.distance = weights[i] * abs(self.rfBins[i] - img.rfBins[i])
+         self.distance += weights[i] * abs(self.rfBins[i] - img.rfBins[i])
 
