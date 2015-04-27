@@ -9,19 +9,6 @@ class QueryImagePanel(wx.Panel):
       # Set 1.jpg as query image at app start
       self.updateQueryImage('images/1.jpg')
 
-   def scaleImage(self, img):
-      """ Scale down image to fit in grid """
-      size = 200.0
-      (w,h) = img.GetSize()
-      f = w/size
-
-      if f > 1:
-         scaled = img.Scale(w/f, h/f)
-      else:
-         scaled = img
-
-      return scaled
-
    def updateQueryImage(self, queryImage):
       """
          Set query image for computation
@@ -30,7 +17,6 @@ class QueryImagePanel(wx.Panel):
       self.queryImage = queryImage 
 
       #Load image
-      #img = self.scaleImage(wx.Image(queryImage, wx.BITMAP_TYPE_ANY))
       img = wx.Image(queryImage, wx.BITMAP_TYPE_ANY)
 
       #Display

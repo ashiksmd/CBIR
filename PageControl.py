@@ -5,9 +5,6 @@ class PageControl(wx.Panel):
    def __init__(self, parent):
       super(PageControl, self).__init__(parent)
 
-      #self.updateFunc = updateFunc
-      #self.context = context
-
       self.total = 100    # 100 images in total
       self.page = 1       # Start on page 1
       self.pageSize = 20  # 20 images in each page

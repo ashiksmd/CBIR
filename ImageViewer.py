@@ -1,7 +1,7 @@
 import wx
 from QueryImagePanel import QueryImagePanel
 from ButtonsPanel import ButtonsPanel
-from BottomPanel import BottomPanel
+from RightPanel import RightPanel
 import PhotoList
 import common
 
@@ -49,7 +49,7 @@ class ImageViewer(wx.Frame):
 
       leftPanel.SetSizer(vbox)
 
-      self.rightPanel = BottomPanel(panel)
+      self.rightPanel = RightPanel(panel)
 
       hbox.Add(leftPanel, 0, wx.EXPAND | wx.ALL, 10)
       hbox.Add(self.rightPanel, 2, wx.EXPAND | wx.ALL, 10)

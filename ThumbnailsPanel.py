@@ -16,12 +16,11 @@ class ThumbnailsPanel(wx.Panel):
       bmp = wx.BitmapButton(self, -1, img.ConvertToBitmap(), self.GetPosition(), img.GetSize())
 
       #When clicked, do this
-      #self.updateQueryFunc = updateQueryFunc
-      #self.updateQueryContext = updateQueryContext
       self.Bind(wx.EVT_BUTTON, self.updateQueryImage, bmp) 
 
       # File name
       fName = wx.StaticText(self, label=photo.name)
+
       #Relevance checkbox
       if(rfState):
          self.relevanceCB = wx.CheckBox(self, -1, 'Relevant', (10,10))     
