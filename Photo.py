@@ -41,7 +41,7 @@ class Photo:
          self.readRFBins()
 
       #Scale and fit
-      size = 100
+      size = 108
       f = h/float(size)
       self.scaled = self.img.Scale(w/f, h/f)
 
@@ -183,4 +183,19 @@ class Photo:
 
       for i in range(0,89):
          self.distance += weights[i] * abs(self.rfBins[i] - img.rfBins[i])
+
+   def __str__(self):
+      return 'Photo: images/' + self.name
+
+   def __hash__(self):
+      return hash(str(self))
+
+   def __eq__(self, other):
+      if isinstance(other, self.__class__):
+         return self.name == other.name
+      else:
+         return False
+
+   def __ne__(self, other):
+      return not self.__eq__(other)
 

@@ -78,6 +78,7 @@ class ButtonsPanel(wx.Panel):
       else:
           self.inButton.Enable()
           self.ccButton.Enable()
+          PhotoList.relevantPhotos.clear()
 
       self.pageControls.refreshPage()
 
