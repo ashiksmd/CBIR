@@ -99,7 +99,6 @@ def computeWeights():
    for i in range(0, 89):
       weights[i] /= sum
 
-   print weights
    return weights
 
 def computeRF(queryImage):
