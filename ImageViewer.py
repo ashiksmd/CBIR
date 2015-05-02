@@ -1,3 +1,6 @@
+# ImageViewer.py
+# Main UI to execute queries
+
 import wx
 from QueryImagePanel import QueryImagePanel
 from ButtonsPanel import ButtonsPanel
@@ -32,7 +35,7 @@ class ImageViewer(wx.Frame):
       vbox = wx.BoxSizer(wx.VERTICAL)
       hbox = wx.BoxSizer(wx.HORIZONTAL)
 
-      #Top panel. Contains query image and some buttons
+      #Left panel. Contains query image and some buttons
       leftPanel = wx.Panel(panel)
 
       #Panel to display the query image
@@ -49,6 +52,7 @@ class ImageViewer(wx.Frame):
 
       leftPanel.SetSizer(vbox)
 
+      #Right panel. The results would be displayed here.
       self.rightPanel = RightPanel(panel)
 
       hbox.Add(leftPanel, 0, wx.EXPAND | wx.ALL, 10)

@@ -1,3 +1,6 @@
+# QueryImagePanel.py
+# Displays the query image
+
 import wx
 import math
 

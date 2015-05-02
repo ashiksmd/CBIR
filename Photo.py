@@ -1,3 +1,8 @@
+# Photo.py
+# Contains all the information about a single photo
+# Also contains methods for computing feature bins 
+# and distance/similarity for each photo
+
 import wx
 import math
 import os.path
@@ -41,7 +46,7 @@ class Photo:
          self.readRFBins()
 
       #Scale and fit
-      size = 108
+      size = 104
       f = h/float(size)
       self.scaled = self.img.Scale(w/f, h/f)
 
@@ -179,6 +184,10 @@ class Photo:
          self.distance += abs(self.ccBins[i] - img.ccBins[i])
 
    def computeRFDistance(self, img, weights):
+      """
+         Compute Manhattan-distance to img using the 
+         combined and normalized feature histogram bins
+      """
       self.distance = 0
 
       for i in range(0,89):

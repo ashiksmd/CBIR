@@ -1,3 +1,6 @@
+# ResultsPanel.py
+# Displays the results as individual thumbnails
+
 import wx
 import wx.lib.scrolledpanel as scrolled
 import PhotoList
@@ -16,6 +19,7 @@ class ResultsPanel(scrolled.ScrolledPanel):
    def updateResults(self, start, end):
       """ Display images in range start-end """
 
+      # Is relevance feedback enabled?
       rfState = common.buttonsPanel.rfToggle.IsChecked()
 
       # Clear any previous entries
@@ -33,4 +37,3 @@ class ResultsPanel(scrolled.ScrolledPanel):
       self.SetSizer(self.grid)
       self.SetAutoLayout(1)
       self.SetupScrolling() 
-

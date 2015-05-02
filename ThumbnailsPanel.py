@@ -1,3 +1,7 @@
+# ThumbnailsPanel.py
+# Displays a single image as a thumbnail in the results section
+# Also includes the file name and the checkbox to mark it as relevant
+
 import wx
 import PhotoList
 import common
@@ -37,8 +41,10 @@ class ThumbnailsPanel(wx.Panel):
       self.SetSizer(vbox)
 
    def updateQueryImage(self, e):
+      """If a thumbnail is clicked, the image is set as the new query image"""
       common.queryImagePanel.updateQueryImage('images/' + self.photoName)
 
    def markRelevant(self, e):
+      """Mark this image as relevant for next iteration"""
       state = self.relevanceCB.IsChecked()
       PhotoList.updateRelevantPhotos(self.photoName, state)

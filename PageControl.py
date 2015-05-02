@@ -1,3 +1,6 @@
+# PageControl.py
+# Contains components for navigating between pages of search results
+
 import wx
 import common
 
@@ -45,30 +48,35 @@ class PageControl(wx.Panel):
       common.resultsPanel.updateResults(start, end)
 
    def gotoFirst(self, e, ignoreIfAtFirst=True):
+      """Go to the first page of search results"""
       if (self.page == 1 and ignoreIfAtFirst): return
 
       self.page = 1
       self.refreshPage()
       
    def gotoPrev(self, e):
+      """Go to previous page of search results"""
       if (self.page == 1): return
 
       self.page = self.page - 1
       self.refreshPage()
 
    def gotoNext(self, e):
+      """Go to next page of search results"""
       if (self.page == 5): return
 
       self.page = self.page + 1
       self.refreshPage()
 
    def gotoLast(self, e):
+      """Go to the last page of search results"""
       if (self.page == 5): return
 
       self.page = 5
       self.refreshPage()
 
    def gotoPage(self, e):
+      """Go to the selected page of search results"""
       page = self.currPage.GetSelection() + 1
       if (self.page == page): return
 

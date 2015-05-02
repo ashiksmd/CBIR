@@ -1,3 +1,6 @@
+# RightPanel.py
+# Encapsulates the results panel to the right of the window
+
 import wx
 from PageControl import PageControl
 from ResultsPanel import ResultsPanel

@@ -1,3 +1,7 @@
+# PhotoList.py
+# Includes the main methods for executing queries
+# This file can also be run directly to re-compute histogram bins
+
 from Photo import Photo
 import os
 
@@ -50,6 +54,12 @@ def computeInt(queryImage):
    photoList.sort(key=lambda x: x.distance)
 
 def computeStats(photos):
+   """
+      Compute mean and standard deviation of the feature bin.
+      Used for computing weights for relevance feedback.
+      The photos received as arguments should be the relevant images
+      selected by the user.
+   """
    mean = [0]*89
    sd = [0]*89
    minNonZeroSD = float('inf')
@@ -189,12 +199,13 @@ def updateRelevantPhotos(photoName, relevant):
       relevantPhotos.discard(photo)
 
 if __name__ == "__main__":
-   print 'Re-computing Gaussian normalized features'
-
+   # Load all the photos to memory and re-compute histogram bins
+   # for intensity and color code features
    initPhotoList(True)
+   
+   # Normalizing feature bins for relevance feedback
    normalizeResults()
 
    # Write normalized features to disk
    for photo in photoList:
       photo.writeRFBins()
-
